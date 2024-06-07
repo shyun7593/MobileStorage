@@ -70,14 +70,19 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final FlutterSecureStorage storage = const FlutterSecureStorage(); //flutter_secure_storage 사용을 위한 초기화 작업
-
   Future<bool> _asyncMethod() async {
     //read 함수를 통하여 key값에 맞는 정보를 불러오게 됩니다. 이때 불러오는 결과의 타입은 String 타입임을 기억해야 합니다.
     //(데이터가 없을때는 null을 반환을 합니다.)
     var login = await storage.read(key: 'login');
     var id = await storage.read(key: 'clientId');
     var platform = await storage.read(key: 'platform');
-
+    if(Platform.isIOS){
+      await storage.write(key: 'OS', value: 'IOS');
+    } else if(Platform.isAndroid){
+      await storage.write(key: 'OS', value: 'Android');
+    } else{
+      await storage.write(key: 'OS', value: 'Unknown');
+    }
     print('정보 - id :$id / platform :$platform');
     var result;
     List<Map<String, dynamic>> dataList = [];
@@ -124,6 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
     } else {
       return false;
     }
+
   }
 
   @override

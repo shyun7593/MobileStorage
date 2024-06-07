@@ -24,8 +24,9 @@ class _LoginPageState extends State<LoginPage>{
   final FlutterSecureStorage storage = const FlutterSecureStorage();
   // 회원인지 확인
   bool isMember = false;
-  bool isLoading = false;
 
+  // 로딩중인지 판별
+  bool isLoading = false;
   // 구글 로그인
   void signWithGoogle() async{
     final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
@@ -193,6 +194,14 @@ class _LoginPageState extends State<LoginPage>{
 
   @override
   Widget build(BuildContext context) {
+    String os;
+    if (Platform.isIOS) {
+      os = 'iOS';
+    } else if (Platform.isAndroid) {
+      os = 'Android';
+    } else {
+      os = 'Unknown';
+    }
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -268,7 +277,11 @@ class _LoginPageState extends State<LoginPage>{
                     const SizedBox(height: 5,),
                     LoginButton(imagePath: 'asset/images/kakao_login.png', onPressed: signWithKakao, buttonColor: Colors.yellow),
                     const SizedBox(height: 5,),
-                    LoginButton(imagePath: 'asset/images/apple_login.png', onPressed: signInWithApple, buttonColor: Colors.black),
+                    os == 'ios' ?
+                      LoginButton(imagePath: 'asset/images/apple_login.png',
+                          onPressed: signInWithApple,
+                          buttonColor: Colors.black)
+                      :
                     const SizedBox(height: 5,),
                   ],
                 ),
