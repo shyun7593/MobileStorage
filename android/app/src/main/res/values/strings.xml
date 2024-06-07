@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">mobile_storage</string>
+    <string name="facebook_app_id">1627080934811482</string>
+    <string name="fb_login_protocol_scheme">fb1627080934811482</string>
+    <string name="facebook_client_token">35dbf0ef69de495a20171b9ff06aaa01</string>
+</resources>
